@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         resources :instagram_post, except: [:show, :new] do
           post 'sync', on: :collection
         end
+        resources :tokens
       end
     end
   end

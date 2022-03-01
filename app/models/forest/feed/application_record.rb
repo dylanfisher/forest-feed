@@ -1,6 +1,6 @@
 module Forest
   module Feed
-    class ApplicationRecord < ActiveRecord::Base
+    class ApplicationRecord < Forest::ApplicationRecord
       self.abstract_class = true
     end
   end
