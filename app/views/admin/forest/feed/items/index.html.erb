@@ -8,6 +8,7 @@
           <th></th>
         <% end %>
         <th><%= table_sorter title: 'ID', path: :admin_forest_feed_items_path, scope: :by_id, default_order: :desc %></th>
+        <th></th>
         <th>Service</th>
         <th>Service ID</th>
         <th>Type</th>
@@ -20,12 +21,13 @@
     </thead>
 
     <tbody>
-      <% @items.each do |item| %>
+      <% @items.includes(:featured_media_item).each do |item| %>
         <tr>
           <% if Forest::Feed::Item.statusable? %>
             <td><%= status_indicator item %></td>
           <% end %>
           <td><%= item.id %></td>
+          <td><%= table_thumbnail(item.featured_media_item) if item.featured_media_item.image? %></td>
           <td><%= item.service %></td>
           <td><%= item.username %></td>
           <td><%= item.data['media_type'].titlecase.gsub(' ', '&nbsp;').html_safe %></td>

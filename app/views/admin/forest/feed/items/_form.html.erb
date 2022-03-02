@@ -24,6 +24,26 @@
           </div>
         </div>
       </div>
+      <% if @item.media_items.present? %>
+        <div class="card my-3">
+          <h1 class="h3 card-header">Media</h1>
+          <div class="card-body">
+            <div class="form-inputs">
+              <div class="row small-gutters">
+                <div class="col-md-12">
+                  <div class="row small-gutters mb-n3">
+                    <% @item.media_items.each do |media_item| %>
+                      <div class="col-4 col-md-3 col-xl-2 mb-3">
+                        <%= link_to image_tag(media_item.attachment_url(:medium)), edit_admin_media_item_path(media_item), class: 'blank-link', target: '_blank' %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <div class="card bg-light my-3">
         <h1 class="h3 card-header">Data</h1>
         <div class="card-body">
