@@ -45,6 +45,11 @@ module Forest::Feed::Instagram
       body = JSON.parse(response.body)
       new_token = body['access_token']
 
+      if new_token.blank?
+        Rails.logger.error { "[Forest][Error] error refreshing Instagram Access Token" }
+        return
+      end
+
       token.update(code: new_token)
     end
   end
