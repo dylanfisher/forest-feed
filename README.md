@@ -20,6 +20,13 @@ Forest::Feed will refresh the token each time the feed is synced. If all goes we
 - Once the Instagram Basic Display app is created, use the `User Token Generator` to add an Instagram tester.
 - On the client's Instagram account, go to settings > [Apps and Websites](https://www.instagram.com/accounts/manage_access/) > Tester Invites, and accept the invite.
 - Go back to the Basic Display app via within Facebook and press the Generate Token button next to the authorized test user. You'll need to log in to the client's Instagram account.
+- Once you have the token, go into the Forest dashboard and select the Token resource. Create a new token for the `Instagram` service, paste in the token code, the user ID, and the display user name (the Instagram handle).
+
+## Rake Tasks
+
+You'll want to run the following rake task hourly or daily to keep the feed up to date.
+
+`rails forest:feed:sync`
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
