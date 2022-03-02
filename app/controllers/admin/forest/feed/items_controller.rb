@@ -42,11 +42,23 @@ class Admin::Forest::Feed::ItemsController < Forest::Feed::AdminController
     redirect_to admin_forest_feed_items_url, notice: 'Item was successfully destroyed.'
   end
 
+  def sync
+    authorize [:forest, :feed, :item], :sync?
+
+    if Forest::Feed::SyncItemsJob.perform_later
+      notice = 'Item sync initiated in a background process. Refresh your browser in a few minutes to view the new items.'
+    else
+      notice = 'Items failed to sync.'
+    end
+
+    redirect_to admin_forest_feed_items_path, notice: notice
+  end
+
   private
 
   def item_params
     # Add blockable params to the permitted attributes if this record is blockable `**BlockSlot.blockable_params`
-    params.require(:item).permit(:service, :username, :data)
+    params.require(:item).permit(:service, :user_id, :user_display_name, :service_id, :data)
   end
 
   def set_item

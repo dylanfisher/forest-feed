@@ -10,7 +10,7 @@ module Forest::Feed::Instagram
 
     def initialize(token)
       @token = token
-      @user_id = token.username
+      @user_id = token.user_id
       @connection = Faraday.new(
         url: "https://graph.instagram.com/#{API_VERSION}",
         params: { access_token: token.code }
@@ -27,7 +27,7 @@ module Forest::Feed::Instagram
     # https://developers.facebook.com/docs/instagram-basic-display-api/reference/user/media
     def media
       @media ||= connection.get("#{@user_id}/media", {
-        fields: 'caption,id,media_type,media_url,permalink,timestamp,children{id,media_type,media_url,timestamp}'
+        fields: 'caption,id,media_type,media_url,permalink,timestamp,children{id,media_type,media_url,timestamp,username}'
       })
     end
 

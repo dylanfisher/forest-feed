@@ -1,3 +1,16 @@
+<% content_for :index_header_button_group do %>
+  <%= form_with url: sync_admin_forest_feed_items_path, local: true do %>
+    <div class="d-flex align-items-baseline">
+      <% if Setting.for(Forest::Feed::Item::LAST_SYNC_SETTING_SLUG).present? %>
+        <div class="h6 mr-2">
+          <small>Synced at <span class="text-muted"><%= forest_date Time.at(Setting.for(Forest::Feed::Item::LAST_SYNC_SETTING_SLUG).to_i, in: Time.zone) %></span></small>
+        </div>
+      <% end %>
+      <%= submit_tag 'Sync Now', class: 'btn btn-outline-secondary' %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= render 'admin/headers/index', records: @items, model_name: 'Forest::Feed::Item' %>
 
 <div class="table-responsive">
@@ -10,7 +23,7 @@
         <th><%= table_sorter title: 'ID', path: :admin_forest_feed_items_path, scope: :by_id, default_order: :desc %></th>
         <th></th>
         <th>Service</th>
-        <th>Service ID</th>
+        <th>Username</th>
         <th>Type</th>
         <th>Data</th>
         <th>Post Date</th>
@@ -29,7 +42,7 @@
           <td><%= item.id %></td>
           <td><%= table_thumbnail(item.featured_media_item) if item.featured_media_item.image? %></td>
           <td><%= item.service %></td>
-          <td><%= item.username %></td>
+          <td><%= item.user_display_name %></td>
           <td><%= item.data['media_type'].titlecase.gsub(' ', '&nbsp;').html_safe %></td>
           <td><%= item.data['caption'] %></td>
           <td><%= forest_date DateTime.parse(item.data['timestamp']) %></td>

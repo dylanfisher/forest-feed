@@ -36,7 +36,7 @@ class Admin::Forest::Feed::TokensController < Forest::Feed::AdminController
 
   def token_params
     # Add blockable params to the permitted attributes if this record is blockable `**BlockSlot.blockable_params`
-    params.require(:token).permit(:service, :username, :code)
+    params.require(:token).permit(:service, :user_id, :user_display_name, :code)
   end
 
   def set_token

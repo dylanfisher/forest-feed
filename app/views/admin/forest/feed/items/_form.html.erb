@@ -15,9 +15,10 @@
             <div class="row small-gutters">
               <div class="col-md-6">
                 <%= f.input :service %>
-                <%= f.input :username %>
+                <%= f.input :user_id, label: 'User ID' %>
               </div>
               <div class="col-md-6">
+                <%= f.input :user_display_name, label: 'Username' %>
                 <%= f.button :submit, class: 'btn-success d-md-none' %>
               </div>
             </div>
@@ -33,9 +34,15 @@
                 <div class="col-md-12">
                   <div class="row small-gutters mb-n3">
                     <% @item.media_items.each do |media_item| %>
-                      <div class="col-4 col-md-3 col-xl-2 mb-3">
-                        <%= link_to image_tag(media_item.attachment_url(:medium)), edit_admin_media_item_path(media_item), class: 'blank-link', target: '_blank' %>
-                      </div>
+                      <% if media_item.image? %>
+                        <div class="col-4 col-md-3 col-xl-2 mb-3">
+                          <%= link_to image_tag(media_item.attachment_url(:medium)), edit_admin_media_item_path(media_item), class: 'blank-link', target: '_blank' %>
+                        </div>
+                      <% elsif media_item.video? %>
+                        <div class="col-4 mb-3">
+                          <%= video_tag media_item.attachment_url, controls: true %>
+                        </div>
+                      <% end %>
                     <% end %>
                   </div>
                 </div>

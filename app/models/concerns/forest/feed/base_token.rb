@@ -3,10 +3,10 @@ module Forest::Feed
     extend ActiveSupport::Concern
 
     included do
-      validates :service, :username, :code, presence: true
+      validates :service, :user_id, :user_display_name, :code, presence: true
 
       scope :instagram, -> { where(service: 'Instagram') }
-      scope :for_username, -> (username_id) { where(username: username_id) }
+      scope :for_username, -> (username) { where(user_display_name: username) }
       scope :latest, -> { order(updated_at: :desc).limit(1) }
     end
 
@@ -16,7 +16,7 @@ module Forest::Feed
       end
 
       def usernames
-        Forest::Feed::Token.instagram.distinct.pluck(:username)
+        Forest::Feed::Token.instagram.distinct.pluck(:user_display_name)
       end
     end
   end

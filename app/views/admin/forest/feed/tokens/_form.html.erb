@@ -14,8 +14,9 @@
           <div class="form-inputs">
             <div class="row small-gutters">
               <div class="col-md-6">
-                <%= f.input :service, placeholder: 'Instagram', hint: 'The name of the service, e.g. Instagram.' %>
-                <%= f.input :username, label: 'Service ID', hint: 'The username or handle for this token. For Instagram, you must find and enter your numeric user ID - not your profile handle. The user ID can be found by clicking the "view and edit" button when viewing the app within your Instagram settings.' %>
+                <%= f.input :service, placeholder: 'Instagram', hint: 'The name of the service, e.g. Instagram.', input_html: { value: f.object.try(:service).presence || 'Instagram' } %>
+                <%= f.input :user_id, label: 'User ID', hint: 'The numeric user ID of your Instagram profile. The user ID can be found by clicking the "view and edit" button when viewing the app within your Instagram settings.' %>
+                <%= f.input :user_display_name, hint: 'The handle or display name of your Instagram profile.' %>
               </div>
               <div class="col-md-6">
                 <%= f.input :code, label: 'Secret token', hint: 'The token generated from the service. Treat this code like a private password and keep it secret.' %>

@@ -9,7 +9,8 @@
         <% end %>
         <th><%= table_sorter title: 'ID', path: :admin_forest_feed_tokens_path, scope: :by_id, default_order: :desc %></th>
         <th>Service</th>
-        <th>Service ID</th>
+        <th>User&nbsp;ID</th>
+        <th>Display&nbsp;Name</th>
         <th>Token</th>
         <th><%= table_sorter title: 'Created&nbsp;at'.html_safe, path: :admin_forest_feed_tokens_path, scope: :by_created_at, default_order: :desc %></th>
         <th><%= table_sorter title: 'Updated&nbsp;at'.html_safe, path: :admin_forest_feed_tokens_path, scope: :by_updated_at, default_order: :desc %></th>
@@ -25,7 +26,8 @@
           <% end %>
           <td><%= token.id %></td>
           <td><%= token.service %></td>
-          <td><%= token.username %></td>
+          <td><%= token.user_id %></td>
+          <td><%= token.user_display_name %></td>
           <td><%= content_tag :input, nil, value: token.code, readonly: true, class: 'form-control form-control-sm' %></td>
           <td><%= forest_date token.created_at %></td>
           <td><%= forest_date token.updated_at %></td>

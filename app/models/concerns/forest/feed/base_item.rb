@@ -4,6 +4,7 @@ module Forest::Feed
 
     # The media URLs for a feed item hosted on Instagram's CDN change. We only need to sync the media URL on initial sync.
     IGNORED_SUBSEQUENT_SYNC_ATTRIBUTES = ['media_url']
+    LAST_SYNC_SETTING_SLUG = 'forest_feed_item_last_sync'
 
     included do
       after_commit :create_associated_media_assets, on: :create
@@ -34,11 +35,13 @@ module Forest::Feed
 
           forest_feed_item = record_cache.find { |r|
             r.service == 'Instagram' &&
-            r.username == token.username &&
+            r.user_id == token.user_id &&
+            r.user_display_name == token.user_display_name &&
             r.service_id == service_id
           }.presence || Forest::Feed::Item.find_or_initialize_by({
             service: 'Instagram',
-            username: token.username,
+            user_id: token.user_id,
+            user_display_name: token.user_display_name,
             service_id: service_id
           })
 
@@ -50,6 +53,8 @@ module Forest::Feed
 
           forest_feed_item.save! if forest_feed_item.changed?
         end
+
+        Setting.find_or_create_by(slug: LAST_SYNC_SETTING_SLUG, value_type: 'integer', setting_status: 'hidden').update_columns(value: Time.current.to_i)
 
         client.refresh_access_token!
       end
