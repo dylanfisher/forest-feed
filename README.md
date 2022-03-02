@@ -11,6 +11,9 @@ gem 'forest-shopify', git: 'https://github.com/dylanfisher/forest-shopify.git'
 
 ## Access Token
 
+You'll need to generate the first Instagram access token via the User Token Generator for you Instagram tester user. After this initial long-lived token is generated,
+Forest::Feed will refresh the token each time the feed is synced. If all goes well you won't need to regenerate this token manually.
+
 - Log in to Facebook and go to [Meta for Developers](https://developers.facebook.com/)
 - Navigate to [My Apps](https://developers.facebook.com/apps)
 - Create a new "Consumer" app. Follow prompts to set up the Instagram Basic Display API.

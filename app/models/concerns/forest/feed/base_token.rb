@@ -4,6 +4,10 @@ module Forest::Feed
 
     included do
       validates :service, :username, :code, presence: true
+
+      scope :instagram, -> { where(service: 'Instagram') }
+      scope :for_username, -> (username_id) { where(username: username_id) }
+      scope :latest, -> { order(updated_at: :desc).limit(1) }
     end
 
     class_methods do

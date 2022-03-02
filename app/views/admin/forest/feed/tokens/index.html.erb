@@ -32,14 +32,14 @@
           <td width="1">
             <%= link_to 'Edit', edit_admin_forest_feed_token_path(token), class: 'btn btn-xs btn-primary', role: 'button' %>
           </td>
-          <% if try('token_path', token) %>
+          <% if try('forest_feed_token_path', token) %>
             <% if token.respond_to?(:to_friendly_param) %>
               <% param = token.to_friendly_param %>
             <% else %>
               <% param = token %>
             <% end %>
             <td width="1">
-              <%= link_to 'Show', token_path(param), class: 'btn btn-xs btn-info', role: 'button', data: { turbolinks: false } %>
+              <%= link_to 'Show', forest_feed_token_path(param), class: 'btn btn-xs btn-info', role: 'button', data: { turbolinks: false } %>
             </td>
           <% end %>
           <td width="1">
