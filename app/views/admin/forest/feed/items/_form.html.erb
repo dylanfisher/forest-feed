@@ -16,13 +16,18 @@
               <div class="col-md-6">
                 <%= f.input :service %>
                 <%= f.input :username %>
-                <%= f.input :data %>
               </div>
               <div class="col-md-6">
                 <%= f.button :submit, class: 'btn-success d-md-none' %>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="card bg-light my-3">
+        <h1 class="h3 card-header">Data</h1>
+        <div class="card-body">
+          <pre class="mb-0"><code><%= JSON.pretty_generate(f.object.data) %></code></pre>
         </div>
       </div>
     </div>

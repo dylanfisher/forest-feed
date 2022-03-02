@@ -5,6 +5,10 @@ module Forest::Feed
     # The media URLs for a feed item hosted on Instagram's CDN change. We only need to sync the media URL on initial sync.
     IGNORED_SUBSEQUENT_SYNC_ATTRIBUTES = ['media_url']
 
+    included do
+      scope :by_post_date, -> { order(Arel.sql("data -> 'timestamp'::text DESC")) }
+    end
+
     class_methods do
       def resource_description
         'A feed item is created to represent each individual post from your feed.'
@@ -33,8 +37,6 @@ module Forest::Feed
           attributes_to_ignore = forest_feed_item.new_record? ? [] : IGNORED_SUBSEQUENT_SYNC_ATTRIBUTES
 
           instagram_media_item.keys.excluding(attributes_to_ignore).each do |key|
-            next if attributes_to_ignore.include?(key)
-
             forest_feed_item.data[key] = instagram_media_item[key]
           end
 
@@ -42,6 +44,30 @@ module Forest::Feed
         end
 
         client.refresh_access_token!
+      end
+
+      # def uploader
+      #   @uploader ||= FileUploader.new(:cache)
+      # end
+    end
+
+    def image?
+      data['media_type'] == 'IMAGE'
+    end
+
+    def video?
+      data['media_type'] == 'VIDEO'
+    end
+
+    def carousel?
+      data['media_type'] == 'CAROUSEL_ALBUM'
+    end
+
+    def featured_media_url
+      if data['children'].present?
+        data['children'].first['media_url']
+      else
+        data['media_url']
       end
     end
   end

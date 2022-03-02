@@ -2,7 +2,7 @@ class Admin::Forest::Feed::ItemsController < Forest::Feed::AdminController
   before_action :set_item, only: [:edit, :update, :destroy]
 
   def index
-    @pagy, @items = pagy apply_scopes(Forest::Feed::Item).by_id
+    @pagy, @items = pagy apply_scopes(Forest::Feed::Item).by_post_date
     authorize @items, :admin_index?
   end
 

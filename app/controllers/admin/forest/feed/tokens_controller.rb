@@ -26,16 +26,6 @@ class Admin::Forest::Feed::TokensController < Forest::Feed::AdminController
     end
   end
 
-  def update
-    authorize @token
-
-    if @token.update(token_params)
-      redirect_to edit_admin_forest_feed_token_path(@token), notice: 'Token was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
   def destroy
     authorize @token
     @token.destroy

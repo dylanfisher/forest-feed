@@ -9,8 +9,10 @@
         <% end %>
         <th><%= table_sorter title: 'ID', path: :admin_forest_feed_items_path, scope: :by_id, default_order: :desc %></th>
         <th>Service</th>
-        <th>Username</th>
+        <th>Service ID</th>
+        <th>Type</th>
         <th>Data</th>
+        <th>Post Date</th>
         <th><%= table_sorter title: 'Created&nbsp;at'.html_safe, path: :admin_forest_feed_items_path, scope: :by_created_at, default_order: :desc %></th>
         <th><%= table_sorter title: 'Updated&nbsp;at'.html_safe, path: :admin_forest_feed_items_path, scope: :by_updated_at, default_order: :desc %></th>
         <th colspan="3"></th>
@@ -26,7 +28,9 @@
           <td><%= item.id %></td>
           <td><%= item.service %></td>
           <td><%= item.username %></td>
-          <td><%= item.data %></td>
+          <td><%= item.data['media_type'].titlecase.gsub(' ', '&nbsp;').html_safe %></td>
+          <td><%= item.data['caption'] %></td>
+          <td><%= forest_date DateTime.parse(item.data['timestamp']) %></td>
           <td><%= forest_date item.created_at %></td>
           <td><%= forest_date item.updated_at %></td>
           <td width="1">
