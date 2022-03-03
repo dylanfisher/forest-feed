@@ -15,6 +15,8 @@ module Forest::Feed
       has_one :featured_media_asset, -> { where(position: 0) }, foreign_key: :forest_feed_item_id, class_name: 'Forest::Feed::MediaAsset'
       has_one :featured_media_item, through: :featured_media_asset, source: :media_item
 
+      scope :instagram, -> { where(service: 'Instagram') }
+      scope :for_username, -> (username) { where(user_display_name: username) }
       scope :by_post_date, -> { order(Arel.sql("data -> 'timestamp'::text DESC")) }
     end
 
@@ -82,6 +84,10 @@ module Forest::Feed
 
     def featured_media_url
       media_urls.first
+    end
+
+    def permalink
+      data['permalink']
     end
 
     def create_associated_media_assets
