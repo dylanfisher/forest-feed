@@ -40,7 +40,7 @@
             <td><%= status_indicator item %></td>
           <% end %>
           <td><%= item.id %></td>
-          <td><%= table_thumbnail(item.featured_media_item) if item.featured_media_item.image? %></td>
+          <td><%= table_thumbnail(item.featured_media_item) if item.featured_media_item.try(:image?) %></td>
           <td><%= item.service %></td>
           <td><%= item.user_display_name %></td>
           <td><%= item.data['media_type'].titlecase.gsub(' ', '&nbsp;').html_safe %></td>
