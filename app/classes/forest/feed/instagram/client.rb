@@ -2,7 +2,7 @@ require 'faraday'
 
 module Forest::Feed::Instagram
   class Client
-    API_VERSION = 'v13.0'
+    API_VERSION = 'v22.0'
 
     attr_accessor :connection
     attr_accessor :user_id

@@ -16,10 +16,9 @@ Forest::Feed will refresh the token each time the feed is synced. If all goes we
 
 - Log in to Facebook and go to [Meta for Developers](https://developers.facebook.com/)
 - Navigate to [My Apps](https://developers.facebook.com/apps)
-- Create a new "Consumer" app. Follow prompts to set up the Instagram Basic Display API.
-- Once the Instagram Basic Display app is created, use the `User Token Generator` to add an Instagram tester.
-- On the client's Instagram account, go to settings > [Apps and Websites](https://www.instagram.com/accounts/manage_access/) > Tester Invites, and accept the invite.
-- Navigate to the "Instagram Basic Display" heading in the Facebook developer sidebar panel and select "Basic Display". Press the Generate Token button next to the authorized test user. You'll need to log in to the client's Instagram account.
+- Create a new "Business" app. Follow prompts to add the Instagram product to your app.
+- Click the "Generate access tokens" add account button. Log in and authorize with Instagram.
+- Click the "Generate token" link in the newly added Instagram account.
 - Once you have the token, go into the Forest dashboard and select the Token resource. Create a new token for the `Instagram` service, paste in the token code, the user ID, and the display user name (the Instagram handle).
 
 ## Rake Tasks
