@@ -1,8 +1,6 @@
 # Forest::Feed
 Sync a personal Instagram account with a Rails application running Forest CMS.
 
-This approach uses the [Instagram Basic Display API](https://developers.facebook.com/docs/instagram-basic-display-api/overview).
-
 ## Installation
 
 ```ruby
